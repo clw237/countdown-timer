@@ -4,9 +4,6 @@ backend/node_modules/
 # Node modules for frontend
 frontend/node_modules/
 
-# Build output for Angular
-frontend/dist/
-
 # Logs
 npm-debug.log*
 yarn-debug.log*
