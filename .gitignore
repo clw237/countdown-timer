@@ -3,6 +3,7 @@ backend/node_modules/
 
 # Node modules for frontend
 frontend/node_modules/
+frontend/.angular/
 
 # Logs
 npm-debug.log*
