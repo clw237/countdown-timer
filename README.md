@@ -31,3 +31,27 @@ Make sure you have the following installed:
    ```bash
    git clone https://github.com/yourusername/countdown-timer.git
    cd countdown-timer
+2. **Install the dependencies:**:
+   ```bash
+   cd frontend
+   npm install
+3. **Start the development server:**:
+   ```bash
+   ng serve
+4. **Open your browser and navigate to http://localhost:4200/. The application will automatically reload whenever you modify any of the source files.**:
+
+### Setting Up the Express Backend
+
+1. **Navigate to the backend directory**:
+   ```bash
+   cd ../backend
+2. **Initialize a new Node.js project (if not already done)**:
+   ```bash
+   npm init -y
+3. **Install Express and CORS:**:
+   ```bash
+   npm install express cors
+4. **Start your Express server:**:
+   ```bash
+   node server.js
+5. **Your Express server should now be running on http://localhost:3000, providing countdown data to your Angular frontend.**:
