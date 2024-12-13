@@ -54,4 +54,4 @@ Make sure you have the following installed:
 4. **Start your Express server:**:
    ```bash
    node server.js
-5. **Your Express server should now be running on http://localhost:3000, providing countdown data to your Angular frontend.**:
+5. **Your Express server should now be running on http://localhost:3000, providing countdown data to your Angular frontend.**
