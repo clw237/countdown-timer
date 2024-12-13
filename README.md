@@ -1,6 +1,7 @@
 # Countdown Timer App
 
 This project is an Angular application that provides a countdown timer to a specified deadline (New Years Day 2025). It retrieves the deadline from a backend service built with Express and updates the countdown every second.
+![Home Page](frontend/src/assets/CountDown-homepage.png)
 
 ## Features
 
