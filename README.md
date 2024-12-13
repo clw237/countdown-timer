@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # CountdownTimerApp
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.5.
@@ -57,3 +58,7 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+=======
+# countdown-timer
+Write an Angular component (and any other Angular classes/functions if needed) that will retrieve data from backend and will display “Seconds left to deadline: X” countdown timer (X should be updated every second). 
+>>>>>>> c0f9071a077037191fe7090a3a943f86cb09354a
