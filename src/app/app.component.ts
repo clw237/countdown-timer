@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { CountdownComponent } from './countdown/countdown.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  standalone: true,
+  template: '<app-countdown></app-countdown>',
+  imports: [CountdownComponent] // Import CountdownComponent here
 })
-export class AppComponent {
-  title = 'countdown-timer-app';
-}
+export class AppComponent {}
