@@ -41,7 +41,7 @@ export class CountdownService implements OnDestroy {
         return timer(0, 1000).pipe(
           map(i => seconds - i), // Calculate remaining seconds by subtracting elapsed time (i)
           map(remaining => Math.max(remaining, 0)), // Ensure remaining time does not go below zero
-          takeWhile(remaining => remaining > 0) // Complete the observable when countdown reaches zero
+          takeWhile(remaining => remaining > 0, true) // Emit the final 0, then complete
         );
       }),
       catchError(error => {
