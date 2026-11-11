@@ -1,58 +1,79 @@
 # Countdown Timer App
 
-This project is an Angular application that provides a countdown timer to a specified deadline (New Years Day 2025). It retrieves the deadline from a backend service built with Express and updates the countdown every second.
+An Angular app that counts down to New Year's Day. The deadline comes from a small Express backend, and the display updates every second.
+
 ![Home Page](frontend/src/assets/CountDown-homepage.png)
 
 ## Features
 
-- Displays the time remaining until the specified deadline.
-- Updates in real-time every second.
-- Responsive design suitable for various devices.
-- Simple and intuitive user interface.
+- Shows the days, hours, minutes and seconds left until the deadline.
+- Updates in real time every second.
+- Rolls over automatically: by default the deadline is always the next New Year's Day (midnight UTC).
+- Optional fixed deadline through an environment variable.
+- Responsive design for different screen sizes.
 
 ## Technologies Used
 
-- **Angular**: Frontend framework for building dynamic web applications.
-- **RxJS**: Library for reactive programming using Observables.
-- **Express**: Backend framework for building web applications.
-- **HTML5** and **CSS3**: For structuring and styling the application.
+- **Angular 19**: frontend framework
+- **RxJS**: reactive countdown stream
+- **Express**: backend API
+- **HTML5** and **CSS3**: structure and styling
 
 ## Getting Started
 
 ### Prerequisites
 
-Make sure you have the following installed:
+- [Node.js](https://nodejs.org/) 18.19 or later (required by Angular 19)
 
-- [Node.js](https://nodejs.org/) (version 12 or later)
-- [Angular CLI](https://angular.io/cli) (install globally with `npm install -g @angular/cli`)
+### 1. Clone the repository
 
-### Setting Up the Angular Frontend
+```bash
+git clone https://github.com/clw237/countdown-timer.git
+cd countdown-timer
+```
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/yourusername/countdown-timer.git
-   cd countdown-timer
-2. **Install the dependencies:**:
-   ```bash
-   cd frontend
-   npm install
-3. **Start the development server:**:
-   ```bash
-   ng serve
-4. **Open your browser and navigate to http://localhost:4200/. The application will automatically reload whenever you modify any of the source files.**:
+### 2. Start the Express backend
 
-### Setting Up the Express Backend
+```bash
+cd backend
+npm install
+npm start
+```
 
-1. **Navigate to the backend directory**:
-   ```bash
-   cd ../backend
-2. **Initialize a new Node.js project (if not already done)**:
-   ```bash
-   npm init -y
-3. **Install Express and CORS:**:
-   ```bash
-   npm install express cors
-4. **Start your Express server:**:
-   ```bash
-   node server.js
-5. **Your Express server should now be running on http://localhost:3000, providing countdown data to your Angular frontend.**
+The API runs at http://localhost:3000.
+
+### 3. Start the Angular frontend
+
+In a second terminal, from the repository root:
+
+```bash
+cd frontend
+npm install
+npm start
+```
+
+Open http://localhost:4200/. The page reloads whenever you change a source file.
+
+## Configuration
+
+The backend reads these optional environment variables:
+
+| Variable | Default | Description |
+|---|---|---|
+| `DEADLINE` | next New Year's Day, 00:00 UTC | Fixed deadline as an ISO 8601 date, e.g. `2027-06-01T00:00:00Z` |
+| `PORT` | `3000` | Port the API listens on |
+| `CORS_ORIGIN` | `http://localhost:4200` | Origin allowed to call the API |
+
+Example:
+
+```bash
+DEADLINE=2027-06-01T00:00:00Z npm start
+```
+
+## API
+
+`GET /api/deadline` returns:
+
+```json
+{ "secondsLeft": 4387844, "deadline": "2027-01-01T00:00:00.000Z" }
+```

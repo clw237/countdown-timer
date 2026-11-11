@@ -7,15 +7,28 @@ const cors = require('cors');
 
 // Create an Express application
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
-// Set a fixed deadline to January 1, 2025, at midnight UTC
-// Using .getTime() to convert to milliseconds since Unix epoch
-const deadline = new Date('2025-01-01T00:00:00Z').getTime();
+// Optional fixed deadline, e.g. DEADLINE=2027-06-01T00:00:00Z
+const fixedDeadline = process.env.DEADLINE ? new Date(process.env.DEADLINE) : null;
+if (fixedDeadline && isNaN(fixedDeadline.getTime())) {
+    console.error(`Invalid DEADLINE value: "${process.env.DEADLINE}". Use an ISO 8601 date, e.g. 2027-01-01T00:00:00Z`);
+    process.exit(1);
+}
+
+/**
+ * Returns the deadline as a Date. If DEADLINE is set, it is used as-is;
+ * otherwise the deadline is the next New Year's Day at midnight UTC,
+ * so the countdown never goes stale.
+ */
+function getDeadline(now = new Date()) {
+    if (fixedDeadline) return fixedDeadline;
+    return new Date(Date.UTC(now.getUTCFullYear() + 1, 0, 1));
+}
 
 // Configure CORS options to allow requests only from the Angular development server
 const corsOptions = {
-    origin: 'http://localhost:4200', // Allow only this origin
+    origin: process.env.CORS_ORIGIN || 'http://localhost:4200',
     optionsSuccessStatus: 200 // For legacy browser support
 };
 
@@ -24,19 +37,18 @@ app.use(cors(corsOptions));
 
 // Define the API endpoint to get seconds left until the deadline
 app.get('/api/deadline', (req, res) => {
-    // Get current time in milliseconds
-    const currentTime = Date.now();
-    
+    const now = new Date();
+    const deadline = getDeadline(now);
+
     // Calculate seconds left, ensuring it's not negative
-    const secondsLeft = Math.max(0, Math.floor((deadline - currentTime) / 1000));
-    
-    // Send the response as JSON
-    res.json({ secondsLeft: secondsLeft });
+    const secondsLeft = Math.max(0, Math.floor((deadline.getTime() - now.getTime()) / 1000));
+
+    res.json({ secondsLeft, deadline: deadline.toISOString() });
 });
 
 // Start the server and listen on the specified port
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
     console.log(`Current UTC time: ${new Date().toISOString()}`);
-    console.log(`Deadline is set to: ${new Date(deadline).toISOString()}`);
+    console.log(`Deadline is set to: ${getDeadline().toISOString()}${fixedDeadline ? ' (from DEADLINE)' : ' (next New Year)'}`);
 });
